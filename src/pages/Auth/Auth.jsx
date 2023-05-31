@@ -45,6 +45,7 @@ const Auth = () => {
         }
         else{
             disptach(logIn(data))
+            setData(initialState)
         }
     };
     return (
