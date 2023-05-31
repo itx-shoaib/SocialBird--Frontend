@@ -8,7 +8,7 @@ const Auth = () => {
     const initialState = {
         firstname: "",
         lastname: "",
-        username: "",
+        email: "",
         password: "",
         confirmpass: ""
     }
@@ -66,7 +66,7 @@ const Auth = () => {
                         </>
                     )}
                     <div>
-                        <input type="text" placeholder='Username' className='infoInput' name="username" onChange={handleChange} value={data.username} />
+                        <input type="email" placeholder='Email' className='infoInput' name="email" onChange={handleChange} value={data.email} />
                     </div>
                     <div>
                         <input type="password" placeholder='Password' className='infoInput' name="password" onChange={handleChange} value={data.password} />
