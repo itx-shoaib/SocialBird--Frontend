@@ -35,7 +35,13 @@ const Auth = () => {
         e.preventDefault();
 
         if (isSignUp) {
-            data.password === data.confirmpass ? disptach(signUp(data)) : setConfirmPass(false)
+           if(data.password === data.confirmpass ){
+               disptach(signUp(data)) 
+               setData(initialState) 
+           }
+            else{
+                setConfirmPass(false)
+            }
         }
         else{
             disptach(logIn(data))
