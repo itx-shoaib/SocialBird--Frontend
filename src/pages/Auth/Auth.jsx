@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import "./Auth.css"
 import Logo from "../../img/logo.png"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logIn, signUp } from '../../actions/AuthAction'
 
 const Auth = () => {
     const initialState = {
         firstname: "",
         lastname: "",
-        username: "",
+        email: "",
         password: "",
         confirmpass: ""
     }
     const disptach = useDispatch()
+    const loading = useSelector((state)=>state?.authReducer?.loading)
     const [isSignUp, setIsSignUp] = useState(true)
     const [data, setData] = useState(initialState)
     const [confirmPass, setConfirmPass] = useState(true);
@@ -35,10 +36,17 @@ const Auth = () => {
         e.preventDefault();
 
         if (isSignUp) {
-            data.password === data.confirmpass ? disptach(signUp(data)) : setConfirmPass(false)
+           if(data.password === data.confirmpass ){
+               disptach(signUp(data)) 
+               setData(initialState) 
+           }
+            else{
+                setConfirmPass(false)
+            }
         }
         else{
             disptach(logIn(data))
+            setData(initialState)
         }
     };
     return (
@@ -66,7 +74,7 @@ const Auth = () => {
                         </>
                     )}
                     <div>
-                        <input type="text" placeholder='Username' className='infoInput' name="username" onChange={handleChange} value={data.username} />
+                        <input type="email" placeholder='Email' className='infoInput' name="email" onChange={handleChange} value={data.email} />
                     </div>
                     <div>
                         <input type="password" placeholder='Password' className='infoInput' name="password" onChange={handleChange} value={data.password} />
@@ -89,7 +97,7 @@ const Auth = () => {
                         <span style={{ fontSize: "12px", cursor: "pointer" }} onClick={() => { setIsSignUp((prev) => !prev); resetForm() }} >
                             {isSignUp ? "Don't have an account? Signup!" : "Already have an account. Login!"}</span>
                     </div>
-                    <button className="button infoButton" type='submit' >{isSignUp ? "SignUp" : "login"}</button>
+                    <button className="button infoButton" type='submit' disabled={loading} >{loading ? "Loading..." : isSignUp ? "SignUp" : "login"}</button>
                 </form>
             </div>
         </div>
