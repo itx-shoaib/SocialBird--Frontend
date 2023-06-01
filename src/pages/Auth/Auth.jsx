@@ -14,6 +14,7 @@ const Auth = () => {
     }
     const disptach = useDispatch()
     const loading = useSelector((state)=>state.AuthReducer.loading)
+    
     const [isSignUp, setIsSignUp] = useState(true)
     const [data, setData] = useState(initialState)
     const [confirmPass, setConfirmPass] = useState(true);
