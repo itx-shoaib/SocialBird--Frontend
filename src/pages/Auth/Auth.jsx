@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./Auth.css"
 import Logo from "../../img/logo.png"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logIn, signUp } from '../../actions/AuthAction'
 
 const Auth = () => {
@@ -13,6 +13,7 @@ const Auth = () => {
         confirmpass: ""
     }
     const disptach = useDispatch()
+    const loading = useSelector((state)=>state.AuthReducer.loading)
     const [isSignUp, setIsSignUp] = useState(true)
     const [data, setData] = useState(initialState)
     const [confirmPass, setConfirmPass] = useState(true);
