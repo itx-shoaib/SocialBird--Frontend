@@ -1,4 +1,4 @@
-const AuthReducer = (state={authData:null,loading:false,error:false},action)=>{
+const authReducer = (state={authData:null,loading:false,error:false},action)=>{
     switch (action.type) {
         case "AUTH_START":
             return {...state,loading:true,error:false}
@@ -14,4 +14,4 @@ const AuthReducer = (state={authData:null,loading:false,error:false},action)=>{
     }
 }
 
-export default AuthReducer;
+export default authReducer;
