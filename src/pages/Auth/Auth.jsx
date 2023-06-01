@@ -14,7 +14,6 @@ const Auth = () => {
     }
     const disptach = useDispatch()
     const loading = useSelector((state)=>state.AuthReducer.loading)
-    
     const [isSignUp, setIsSignUp] = useState(true)
     const [data, setData] = useState(initialState)
     const [confirmPass, setConfirmPass] = useState(true);
@@ -98,7 +97,7 @@ const Auth = () => {
                         <span style={{ fontSize: "12px", cursor: "pointer" }} onClick={() => { setIsSignUp((prev) => !prev); resetForm() }} >
                             {isSignUp ? "Don't have an account? Signup!" : "Already have an account. Login!"}</span>
                     </div>
-                    <button className="button infoButton" type='submit' >{isSignUp ? "SignUp" : "login"}</button>
+                    <button className="button infoButton" type='submit' >{loading ? "Loading..." : isSignUp ? "SignUp" : "login"}</button>
                 </form>
             </div>
         </div>
