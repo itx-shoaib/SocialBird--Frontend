@@ -7,6 +7,7 @@ import { UilLocationPoint } from "@iconscout/react-unicons"
 import { UilSchedule } from "@iconscout/react-unicons"
 import { UilTimes } from "@iconscout/react-unicons"
 import { useSelector,useDispatch } from 'react-redux'
+import { uploadImage } from '../../actions/UploadAction'
 
 const PostShare = () => {
     const disptach = useDispatch()
@@ -38,7 +39,7 @@ const PostShare = () => {
             newPost.image = filename;
             console.log(newPost)
             try {
-                dispatch(uploadImage(data))
+                disptach(uploadImage(data))
             } catch (error) {
                 console.log(`Error in PostShare.jsx.Error: ${error}`)
             }
