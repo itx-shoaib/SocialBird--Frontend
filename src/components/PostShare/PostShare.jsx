@@ -33,10 +33,10 @@ const PostShare = () => {
 
         if(image){
             const data = new FormData();
-            const filename = new Date() + image.name
-            data.append("name",filename)
+            const fileName = new Date() + image.name
+            data.append("name",fileName)
             data.append("file",image)
-            newPost.image = filename;
+            newPost.image = fileName;
             console.log(newPost)
             try {
                 disptach(uploadImage(data))
