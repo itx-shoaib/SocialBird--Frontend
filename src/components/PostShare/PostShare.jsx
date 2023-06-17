@@ -6,24 +6,50 @@ import { UilPlayCircle } from "@iconscout/react-unicons"
 import { UilLocationPoint } from "@iconscout/react-unicons"
 import { UilSchedule } from "@iconscout/react-unicons"
 import { UilTimes } from "@iconscout/react-unicons"
+import { useSelector,useDispatch } from 'react-redux'
+import { uploadImage } from '../../actions/UploadAction'
 
 const PostShare = () => {
+    const disptach = useDispatch()
+    const user = useSelector((state)=>state.authReducer.authData.user)
     const [image, setImage] = useState(null)
     const imageRef = useRef()
+    const desc = useRef()
 
     const onImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             let img = e.target.files[0];
-            setImage({
-                image: URL.createObjectURL(img)
-            })
+            setImage(img)
+        }
+    }
+
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+
+        const newPost = {
+            userId:user._id,
+            desc : desc.current.value
+        }
+
+        if(image){
+            const data = new FormData();
+            const fileName = new Date() + image.name
+            data.append("name",fileName)
+            data.append("file",image)
+            newPost.image = fileName;
+            console.log(newPost)
+            try {
+                disptach(uploadImage(data))
+            } catch (error) {
+                console.log(`Error in PostShare.jsx.Error: ${error}`)
+            }
         }
     }
     return (
         <div className="PostShare">
             <img src={ProfileImg} alt="" />
             <div>
-                <input type="text" placeholder='Whats happening..' />
+                <input ref={desc} required type="text" placeholder='Whats happening..' />
                 <div className="PostOption">
                     <div className="option"
                         style={{ color: "var(--photo)" }}
@@ -50,7 +76,9 @@ const PostShare = () => {
                         <UilSchedule />
                         Schedule
                     </div>
-                    <button className="button ps-button">
+                    <button className="button ps-button"
+                    onClick={handleSubmit}
+                    >
                         Share
                     </button>
                     <div
@@ -62,7 +90,7 @@ const PostShare = () => {
                 {image && (
                     <div className="previewImage">
                         <UilTimes onClick={() => setImage(null)} />
-                        <img src={image.image} alt="" />
+                        <img src={URL.createObjectURL(image)} alt="" />
                     </div>
                 )}
             </div>
