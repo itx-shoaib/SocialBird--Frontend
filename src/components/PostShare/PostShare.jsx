@@ -8,6 +8,7 @@ import { UilSchedule } from "@iconscout/react-unicons"
 import { UilTimes } from "@iconscout/react-unicons"
 import { useSelector,useDispatch } from 'react-redux'
 import { uploadImage } from '../../actions/UploadAction'
+import { uploadPost } from '../../api/UploadRequest'
 
 const PostShare = () => {
     const disptach = useDispatch()
@@ -44,6 +45,7 @@ const PostShare = () => {
                 console.log(`Error in PostShare.jsx.Error: ${error}`)
             }
         }
+        disptach(uploadPost(newPost))
     }
     return (
         <div className="PostShare">
